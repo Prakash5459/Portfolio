@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Prakash Bhikadiya | Portfolio</title>
+
+  <!-- SEO / Social -->
+  <meta name="description" content="Portfolio of Prakash Bhikadiya — Graphic Designer, Motion Graphics Artist, and Front-End Web Developer. Explore projects, posters, UI/UX work, and live demos.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Prakash Bhikadiya | Portfolio">
+  <meta property="og:description" content="Graphic Design, Motion Graphics, and Front-End Web Development projects by Prakash Bhikadiya.">
+  <meta property="og:url" content="https://your-domain.example.com/">
+  <meta property="og:image" content="Prakash.png">
+  <meta property="og:image:alt" content="Portrait of Prakash Bhikadiya">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Prakash Bhikadiya | Portfolio">
+  <meta name="twitter:description" content="Graphic Design, Motion Graphics, and Front-End Web Development projects by Prakash Bhikadiya.">
+  <meta name="twitter:image" content="Prakash.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.png" type="image/png">
+
+  <style>
+    :root{
+      --sky:#031a24; --blue-100:#cceeff; --text:#d7dee4; --title:#ffffff;
+      --card-bg:rgba(5,12,18,.58); --shadow:0 6px 24px rgba(0,0,0,.6);
+      --nav-h:64px; --focus:#7dd3fc;
+      --pad: clamp(14px, 3vw, 24px);
+      --radius: 16px;
+    }
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:#000; color:var(--title); min-height:100vh;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    ::selection{background:var(--focus);color:#0b1220;}
+    img{display:block; max-width:100%; height:auto;}
+
+    /* Focus accessibility */
+    a:focus-visible,button:focus-visible{outline:3px solid var(--focus); outline-offset:3px; border-radius:8px;}
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
+      .scroll-cue .wheel{animation:none!important;}
+    }
+
+    /* Galaxy canvases */
+    #galaxyCanvas, #starTrailCanvas{
+      position:fixed; inset:0; width:100vw; height:100vh; z-index:0; pointer-events:none; display:block;
+    }
+    #galaxyCanvas{
+      background:
+        radial-gradient(1200px 800px at 70% 10%, rgba(40,20,80,.14), transparent 60%),
+        radial-gradient(900px 700px at 20% 30%, rgba(0,80,140,.12), transparent 60%),
+        radial-gradient(1100px 950px at 60% 80%, rgba(120,30,120,.10), transparent 65%),
+        #000;
+      filter:saturate(1.05);
+    }
+
+    /* Nav */
+    .navbar{
+      position:fixed; inset:0 0 auto 0; height:var(--nav-h);
+      background:linear-gradient(180deg, rgba(5,10,16,.9), rgba(5,10,16,.65));
+      backdrop-filter:saturate(1.2) blur(8px);
+      z-index:1000; display:grid; place-items:center; box-shadow:0 2px 14px rgba(0,0,0,.6);
+      border-bottom:1px solid rgba(147,197,253,.15);
+    }
+    .navbar ul{
+      list-style:none; display:flex; gap: clamp(12px, 4vw, 28px);
+      margin:0; padding:0 clamp(10px, 3vw, 18px); align-items:center; flex-wrap:wrap;
+    }
+    .navbar a{
+      position:relative; text-decoration:none; color:var(--blue-100); font-weight:700;
+      font-size: clamp(13px, 3.4vw, 15px); letter-spacing:.3px; opacity:.95;
+      padding:10px 4px; /* bigger tap targets */
+      transition:opacity .25s ease, color .25s ease;
+    }
+    .navbar a::after{
+      content:""; position:absolute; left:0; bottom:4px; height:2px; width:0%;
+      background:linear-gradient(90deg,#60a5fa,#22d3ee); border-radius:2px; transition:width .25s ease;
+    }
+    .navbar a:hover{color:#fff; opacity:1;}
+    .navbar a:hover::after{width:100%;}
+    /* Small phones: allow horizontal scroll rather than wrapping to multiple lines */
+    @media (max-width:520px){
+      .navbar ul{flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; white-space:nowrap;}
+      .navbar li{flex:0 0 auto;}
+      .navbar ul::-webkit-scrollbar{height:0;}
+    }
+
+    /* Hero (intro) */
+    .hero-section{
+      padding-top:calc(var(--nav-h) + clamp(28px, 6vw, 52px));
+      background:linear-gradient(to bottom, var(--sky), rgba(0,0,0,0));
+      padding-bottom: clamp(70px, 9vw, 90px);
+      text-align:center; position:relative; z-index:1;
+    }
+    .portfolio-title{
+      font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: clamp(32px, 7vw, 52px); margin:0 0 clamp(14px, 3vw, 26px); letter-spacing:3px;
+      text-shadow:0 0 20px rgba(147,197,253,.18);
+      animation:pulseGlow 4s ease-in-out infinite;
+    }
+    @keyframes pulseGlow{
+      0%,100%{text-shadow:0 0 16px rgba(147,197,253,.16);}
+      50%{text-shadow:0 0 28px rgba(147,197,253,.35);}
+    }
+    .hero-content{display:flex; flex-direction:column; align-items:center; gap: clamp(8px, 2.4vw, 16px); padding:0 var(--pad);}
+    .image-wrapper{position:relative; width: clamp(160px, 34vw, 260px); height: clamp(160px, 34vw, 260px); margin-bottom:8px; filter:drop-shadow(0 10px 28px rgba(0,0,0,.65));}
+    .gradient-bg{
+      position:absolute; inset:-6px; border-radius:50%;
+      background:conic-gradient(from 180deg at 50% 50%, #60a5fa, #22d3ee, #a78bfa, #60a5fa);
+      filter:blur(10px) saturate(1.1); opacity:.55; z-index:1; animation:spin 18s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .profile-img{position:relative; width:100%; height:100%; object-fit:cover; border-radius:50%; z-index:2;}
+    .text-content .name{font-size: clamp(22px, 6vw, 34px); font-weight:800; margin:0; line-height:1.15;}
+    .text-content .lastname{display:block;}
+    .roles{font-size: clamp(14px, 3.8vw, 16px); color:var(--blue-100); margin-top:10px; line-height:1.6;}
+    .contact-info p,.contact-info a{color:var(--text);}
+    .contact-info a{text-decoration:none; border-bottom:1px dotted rgba(204,238,255,.5);}
+    .contact-info a:hover{color:#fff; border-bottom-color:#fff;}
+
+    /* Scroll cue */
+    .scroll-cue{
+      position:absolute; left:50%; bottom: clamp(10px, 3.5vw, 20px); transform:translateX(-50%); z-index:2;
+      text-decoration:none; opacity:.95; transition:opacity .2s ease, transform .2s ease;
+    }
+    .scroll-cue:hover{ opacity:1; transform:translateX(-50%) translateY(-2px); }
+    .scroll-cue .mouse{
+      width: clamp(22px, 6vw, 28px); height: clamp(34px, 9vw, 44px);
+      border:2px solid rgba(255,255,255,.85); border-radius:16px; display:inline-block; position:relative; box-shadow:0 0 10px rgba(147,197,253,.15);
+    }
+    .scroll-cue .wheel{
+      position:absolute; left:50%; transform:translateX(-50%); top:8px;
+      width:4px; height:8px; border-radius:2px; background:rgba(255,255,255,.95);
+      animation:wheelDrop 1.8s ease-in-out infinite;
+    }
+    @keyframes wheelDrop{
+      0%{opacity:0; transform:translate(-50%,0)}
+      15%{opacity:1}
+      80%{opacity:0; transform:translate(-50%,16px)}
+      100%{opacity:0; transform:translate(-50%,16px)}
+    }
+    .scroll-cue.is-hidden{ opacity:0; transform:translateX(-50%) translateY(6px); pointer-events:none; }
+
+    /* Sections */
+    .intro-text,.section{
+      position:relative; z-index:1; text-align:center;
+      padding: var(--pad); max-width:1160px; margin:0 auto 0;
+      background:linear-gradient(180deg, rgba(2,8,14,.6), rgba(2,8,14,.45));
+      border:1px solid rgba(148,163,184,.12); border-radius:var(--radius); box-shadow:var(--shadow);
+      transition:transform .5s cubic-bezier(.2,.8,.2,1), opacity .6s ease;
+    }
+    .intro-text{margin-top: clamp(12px, 2.8vw, 18px); font-size: clamp(15px, 3.2vw, 16px); line-height:1.8; color:var(--text);}
+    .section{margin-top: clamp(16px, 3.5vw, 26px);}
+    .section h3{font-size: clamp(18px, 4vw, 24px); color:var(--blue-100); margin:8px 0 16px; text-transform:uppercase; letter-spacing:.6px;}
+    .section p{font-size: clamp(15px, 3.2vw, 18px);}
+
+    .icon-row{display:flex; flex-wrap:wrap; justify-content:center; gap: clamp(12px, 3.6vw, 20px); margin-top:20px; padding:0 8px;}
+    .icon-row img{width:50px; height:50px; object-fit:contain; filter:drop-shadow(0 2px 8px rgba(0,0,0,.6));}
+
+    .web-preview{display:flex; justify-content:center; margin: clamp(12px, 3.2vw, 20px) 0; padding:0 clamp(6px, 2vw, 10px);}
+    .framed{border-radius:12px; box-shadow:var(--shadow); display:block; width:100%; max-width:940px; height:auto;}
+    .framed:hover{box-shadow:0 14px 38px rgba(0,0,0,.6);} /* tilt handles transform */
+
+    .project-card{
+      margin: clamp(16px, 4vw, 32px) auto; max-width:960px; text-align:center; padding: clamp(10px, 3vw, 16px) clamp(12px, 3vw, 20px);
+      background:linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,.4));
+      border:1px solid rgba(148,163,184,.12); border-radius:14px; box-shadow:var(--shadow);
+      transition:box-shadow .25s ease;
+    }
+    .project-card:hover{box-shadow:0 14px 40px rgba(0,0,0,.55);}
+    .project-title{margin-top:12px; font-size: clamp(18px, 4.2vw, 20px); color:var(--blue-100); font-weight:800; letter-spacing:.5px;}
+    .project-desc{font-size: clamp(15px, 3.2vw, 16px); color:var(--text); margin-top:8px; line-height:1.6; padding:0 10px;}
+
+    /* Reveal */
+    .reveal{opacity:0; transform:translateY(16px);}
+    .reveal.visible{opacity:1; transform:translateY(0); transition:opacity .6s ease, transform .6s ease;}
+
+    /* Tilt base */
+    .tilt{transition:transform .18s ease, box-shadow .18s ease; will-change:transform; transform-style:preserve-3d;}
+
+    /* Small screens tweaks */
+    @media (max-width:640px){
+      .intro-text,.section{border-radius:12px;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Galaxy Background (always visible) -->
+  <canvas id="galaxyCanvas" aria-hidden="true"></canvas>
+  <canvas id="starTrailCanvas" aria-hidden="true"></canvas>
+
+  <!-- Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Primary">
+    <ul>
+      <li><a href="#profile">My Profile</a></li>
+      <li><a href="#webpages">WebPages</a></li>
+      <li><a href="#posters">Posters</a></li>
+      <li><a href="#mobile-ui">Mobile UI/UX</a></li>
+      <li><a href="#frontend">Front-End Projects</a></li>
+    </ul>
+  </nav>
+
+  <!-- INTRO (no tilt here) -->
+  <section id="profile" class="hero-section" aria-labelledby="portfolio-title">
+    <h1 id="portfolio-title" class="portfolio-title">PORTFOLIO</h1>
+    <div class="hero-content" id="intro">
+      <div class="image-wrapper">
+        <div class="gradient-bg" aria-hidden="true"></div>
+        <img src="Prakash.png" alt="Portrait of Prakash Bhikadiya smiling, wearing a green top"
+             class="profile-img" width="260" height="260" />
+      </div>
+      <div class="text-content">
+        <h2 class="name">Prakash<br><span class="lastname">Bhikadiya</span></h2>
+        <p class="roles">Graphic Designer | Motion Graphic Artist |<br>Front End Web-Developer</p>
+        <div class="contact-info">
+          <p>Email: <a href="mailto:prakashbhikadiya08@gmail.com">prakashbhikadiya08@gmail.com</a></p>
+          <p>Phone: <a href="tel:+16475490602">+1 (647) 549-0602</a></p>
+          <p>GitHub: <a href="https://github.com/Prakash5459" target="_blank" rel="noopener">github.com/Prakash5459</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <a href="#webpages" class="scroll-cue" aria-label="Scroll for more">
+      <span class="mouse"><span class="wheel"></span></span>
+    </a>
+  </section>
+
+  <section class="intro-text reveal">
+    <p>
+      My name is Prakash Bhikadiya, a Computer Programming graduate from Sheridan College. I'm genuinely passionate
+      about bringing creative and technical ideas to life, especially through front-end web development and design.
+      I love building engaging websites, designing posters, and crafting content for social media and ads. I'm always
+      excited to learn new things and contribute fresh ideas to meaningful projects.
+    </p>
+  </section>
+
+  <section class="section reveal" aria-labelledby="edu">
+    <h3 id="edu">Education</h3>
+    <p><strong>High School Education</strong><br>Ashadeep Vidhyalay — Surat, Gujarat</p>
+    <p><strong>Graphic Designer (Certificate)</strong><br>ADTECH Institute — Surat, Gujarat</p>
+    <p><strong>Computer Programming Diploma</strong><br>Sheridan College — Brampton, Ontario, Canada</p>
+  </section>
+
+  <section class="section reveal" aria-labelledby="work">
+    <h3 id="work">Work Experience</h3>
+    <p><strong>Junior Graphic Designer</strong><br>Bhagwati Jewels — Surat, Gujarat<br>November 2021 – April 2022</p>
+    <p><strong>Graphic Designer / Video Editor</strong><br>Perrian Jewels — Surat, Gujarat<br>May 2021 – December 2022</p>
+    <p><strong>Web Designer (Internship)</strong><br>CUFLA — Toronto, Canada<br>August 2024 – December 2024</p>
+  </section>
+
+  <!-- Software (icons — excluded from tilt) -->
+  <section class="section reveal" aria-labelledby="soft">
+    <h3 id="soft">Software Expertise</h3>
+    <div class="icon-row" role="list">
+      <img src="js.png" alt="JavaScript logo" loading="lazy" width="50" height="50" decoding="async">
+      <img src="css3.png" alt="CSS3 logo" loading="lazy" width="50" height="50" decoding="async">
+      <img src="html5.png" alt="HTML5 logo" loading="lazy" width="50" height="50" decoding="async">
+      <img src="ai.png" alt="Adobe Illustrator logo" loading="lazy" width="50" height="50" decoding="async">
+      <img src="ae.png" alt="Adobe After Effects logo" loading="lazy" width="50" height="50" decoding="async">
+      <img src="ps.png" alt="Adobe Photoshop logo" loading="lazy" width="50" height="50" decoding="async">
+      <img src="github.png" alt="GitHub logo" loading="lazy" width="50" height="50" decoding="async">
+      <img src="vscode.png" alt="Visual Studio Code logo" loading="lazy" width="50" height="50" decoding="async">
+    </div>
+  </section>
+
+  <!-- Webpages -->
+  <section id="webpages" class="section reveal" aria-labelledby="webpages-title">
+    <h3 id="webpages-title">Webpages</h3>
+    <div class="web-preview"><img class="framed tilt" src="dental-site.png" alt="Dental website mockup landing page" loading="lazy" width="1200" height="750" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="bootstrap-site.png" alt="Bootstrap template homepage preview" loading="lazy" width="1200" height="750" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="andco-site.png" alt="AND.CO website concept with clean grid layout" loading="lazy" width="1200" height="750" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="webdesign-landing.png" alt="Web design landing page with hero banner and call to action" loading="lazy" width="1200" height="750" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="coffee-site.png" alt="Coffee shop website with product cards and warm palette" loading="lazy" width="1200" height="750" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="Cayman.png" alt="Cayman travel landing page mockup" loading="lazy" width="1200" height="750" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="House.png" alt="Modern house showcase page" loading="lazy" width="1200" height="750" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="outdoor.jpg" alt="Outdoor adventure landing page" loading="lazy" width="1200" height="750" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="visit-tokyo.jpg" alt="Visit Tokyo promo page with city skyline" loading="lazy" width="1200" height="750" decoding="async"></div>
+  </section>
+
+  <!-- Posters -->
+  <section id="posters" class="section reveal" aria-labelledby="posters-title">
+    <h3 id="posters-title">Posters</h3>
+    <div class="web-preview"><img class="framed tilt" src="NISSAN.png" alt="Nissan campaign poster – bold typography with high-contrast car visual" loading="lazy" width="1200" height="1700" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="NIKE.png" alt="Nike campaign poster – bold red and black grid with product focus" loading="lazy" width="1200" height="1700" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="PORCHE.png" alt="Porsche poster – sleek minimal layout highlighting the car profile" loading="lazy" width="1200" height="1700" decoding="async"></div>
+  </section>
+
+  <!-- Mobile UI/UX -->
+  <section id="mobile-ui" class="section reveal" aria-labelledby="mobile-title">
+    <h3 id="mobile-title">Mobile UI / UX</h3>
+    <div class="web-preview"><img class="framed tilt" src="Class.png" alt="Class app UI – course cards and schedule screen" loading="lazy" width="1200" height="1200" decoding="async"></div>
+    <div class="web-preview"><img class="framed tilt" src="Management.jpg" alt="Management app UI – dashboard and task list" loading="lazy" width="1200" height="1200" decoding="async"></div>
+  </section>
+
+  <!-- Projects -->
+  <section id="frontend" class="section reveal" aria-labelledby="front-title">
+    <h3 id="front-title">Front-End Projects (Click to access sites)</h3>
+
+    <article class="project-card">
+      <a href="https://prakash5459.github.io/shoe-reselling/index.html" target="_blank" rel="noopener">
+        <img src="project1-thumbnail.png" alt="SneakerVerse resell marketplace thumbnail" loading="lazy" width="1200" height="700" decoding="async" class="framed tilt">
+      </a>
+      <p class="project-title">Shoe Reselling Website</p>
+      <p class="project-desc">
+        SneakerVerse is a front-end sneaker resell marketplace built with HTML, CSS, and JavaScript.
+        It features brand-specific pages (Nike, Adidas, Puma), product filters, image zoom, shopping cart with localStorage,
+        and a mock payment system – all fully responsive and designed for a seamless user experience.
+      </p>
+    </article>
+
+    <article class="project-card">
+      <a href="https://prakash5459.github.io/Appointment-App/" target="_blank" rel="noopener">
+        <img src="project2-thumbnail.png" alt="Appointment booking app thumbnail" loading="lazy" width="1200" height="700" decoding="async" class="framed tilt">
+      </a>
+      <p class="project-title">Appointment Booking Page</p>
+      <p class="project-desc">
+        Appointment Booking App is a sleek, responsive, and fully client-side application built using HTML, CSS, and JavaScript.
+        It allows users to register, log in, book appointments, and view their booking history. It uses localStorage and features dark mode.
+      </p>
+    </article>
+
+    <article class="project-card">
+      <a href="https://prakash5459.github.io/Daily-expenses/" target="_blank" rel="noopener">
+        <img src="project3-thumbnail.png" alt="Expense tracker with charts thumbnail" loading="lazy" width="1200" height="700" decoding="async" class="framed tilt">
+      </a>
+      <p class="project-title">Daily Expenses Page</p>
+      <p class="project-desc">
+        Expense Tracker with Charts is a modern, responsive web app that allows users to log and analyze daily expenses.
+        It uses Chart.js for data visualization, supports CSV/PDF export, and includes animated counters.
+      </p>
+    </article>
+
+    <article class="project-card">
+      <a href="https://prakash5459.github.io/Cafesite/" target="_blank" rel="noopener">
+        <img src="project4-thumbnail.png" alt="Coffee cafe layout thumbnail" loading="lazy" width="1200" height="700" decoding="async" class="framed tilt">
+      </a>
+      <p class="project-title">Coffee Cafe Layout</p>
+      <p class="project-desc">
+        A modern coffee shop website using HTML and CSS. Includes a hero banner, product slider, dessert gallery,
+        testimonial section, and newsletter subscription – all styled with cozy colors and elegant layout.
+      </p>
+    </article>
+  </section>
+
+  <script>
+    /* Example counter hook (kept) */
+    let numButtonClicks = 0;
+    function buttonClicked(){
+      numButtonClicks++;
+      const el = document.getElementById("mainDiv");
+      if(el){ el.textContent = "Button Clicked times: " + numButtonClicks; }
+    }
+
+    /* Scroll cue show/hide */
+    (function(){
+      const cue  = document.querySelector('.scroll-cue');
+      const hero = document.getElementById('profile');
+      if (!cue || !hero) return;
+
+      if ('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{
+            if(e.isIntersecting && window.scrollY < (window.innerHeight * 0.5)){
+              cue.classList.remove('is-hidden');
+            }else{
+              cue.classList.add('is-hidden');
+            }
+          });
+        }, { threshold: 0.1 });
+        io.observe(hero);
+      } else {
+        const onScroll = ()=>{
+          if (window.scrollY > 80) cue.classList.add('is-hidden');
+          else cue.classList.remove('is-hidden');
+        };
+        window.addEventListener('scroll', onScroll, { passive:true });
+        onScroll();
+      }
+      cue.addEventListener('click', ()=> cue.classList.add('is-hidden'));
+    })();
+
+    /* Reveal (robust + fallback) */
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{
+            if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+          });
+        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+        els.forEach(el=> io.observe(el));
+        setTimeout(()=> els.forEach(el=> el.classList.add('visible')), 3000);
+      } else {
+        els.forEach(el=> el.classList.add('visible'));
+      }
+    })();
+
+    /* Galaxy + twinkle */
+    (function(){
+      const canvas = document.getElementById('galaxyCanvas');
+      const ctx = canvas.getContext('2d', { alpha: true });
+      const trail = document.getElementById('starTrailCanvas');
+      const tctx = trail.getContext('2d', { alpha: true });
+
+      function setSize(){
+        const W = window.innerWidth, H = window.innerHeight;
+        canvas.width = trail.width = W;
+        canvas.height = trail.height = H;
+      }
+      setSize();
+      window.addEventListener('resize', setSize);
+      window.addEventListener('orientationchange', setSize);
+
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const layers = [
+        { n:140, sp: reduce?0:0.05, sz:[0.6,1.3], stars:[] },
+        { n:110, sp: reduce?0:0.11, sz:[0.9,1.9], stars:[] },
+        { n: 80, sp: reduce?0:0.22, sz:[1.2,2.5], stars:[] }
+      ];
+      const R = (a,b)=> Math.random()*(b-a)+a;
+
+      function star(rng){
+        return {
+          x: Math.random()*canvas.width,
+          y: Math.random()*canvas.height,
+          r: R(rng[0], rng[1]),
+          dx: R(-1,1), dy: R(-1,1),
+          base: R(.35,.95), amp: reduce? .05 : R(.15,.42),
+          spd: reduce? 0.0 : R(.002,.007), ph: Math.random()*Math.PI*2
+        }
+      }
+      function seed(){ layers.forEach(l=> l.stars = Array.from({length:l.n}, ()=> star(l.sz))); }
+      seed();
+
+      function draw(){
+        const W = canvas.width, H = canvas.height;
+        ctx.clearRect(0,0,W,H);
+        layers.forEach(l=>{
+          ctx.beginPath();
+          l.stars.forEach(s=>{
+            s.ph += s.spd;
+            const a = Math.max(0, Math.min(1, s.base + Math.cos(s.ph)*s.amp));
+            ctx.fillStyle = `rgba(255,255,255,${a})`;
+            ctx.moveTo(s.x,s.y);
+            ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+            s.x += s.dx*l.sp; s.y += s.dy*l.sp;
+            if(s.x<-2) s.x=W+2; if(s.x>W+2) s.x=-2;
+            if(s.y<-2) s.y=H+2; if(s.y>H+2) s.y=-2;
+          });
+          ctx.fill();
+        });
+        if(!reduce) requestAnimationFrame(draw);
+      }
+      draw();
+
+      /* Shooting stars — trail uses destination-out so galaxy stays visible */
+      if(!reduce){
+        function shoot(){
+          const W=trail.width,H=trail.height;
+          let x=R(W*0.2,W*0.9), y=R(-40,-10), vx=-(0.9+Math.random()*0.7), vy=(1.6+Math.random()*0.9);
+          let life=0, max=70;
+
+          function step(){
+            // fade without painting black
+            tctx.save();
+            tctx.globalCompositeOperation='destination-out';
+            tctx.fillStyle='rgba(0,0,0,0.14)';
+            tctx.fillRect(0,0,W,H);
+            tctx.restore();
+
+            // glow streak
+            tctx.save();
+            tctx.globalCompositeOperation='lighter';
+            const g = tctx.createLinearGradient(x,y, x-vx*20,y-vy*20);
+            g.addColorStop(0,'rgba(255,255,255,1)');
+            g.addColorStop(1,'rgba(96,165,250,0)');
+            tctx.strokeStyle=g; tctx.lineWidth=2;
+            tctx.beginPath(); tctx.moveTo(x,y); tctx.lineTo(x-vx*20,y-vy*20); tctx.stroke();
+            tctx.restore();
+
+            x+=vx*10; y+=vy*10; life++;
+            if(life<max){ requestAnimationFrame(step); }
+          }
+          step();
+          setTimeout(shoot, 10000+Math.random()*4000);
+        }
+        setTimeout(shoot, 2000);
+      }
+    })();
+
+    /* Tilt on ALL pictures except intro & icons; disabled on touch */
+    (function(){
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      if(reduce || isTouch) return;
+
+      const imgs = Array.from(document.querySelectorAll('img'))
+        .filter(img => !img.closest('#profile') && !img.closest('.icon-row'));
+
+      const strength = 10; // degrees
+      imgs.forEach(img=>{
+        img.classList.add('tilt');
+        let rect;
+        function onMove(e){
+          rect = img.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const rx = ((y/rect.height)-0.5) * -strength;
+          const ry = ((x/rect.width)-0.5) * strength;
+          img.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        }
+        function onLeave(){ img.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)'; }
+        img.addEventListener('mousemove', onMove);
+        img.addEventListener('mouseleave', onLeave);
+      });
+    })();
+  </script>
+</body>
+</html>
